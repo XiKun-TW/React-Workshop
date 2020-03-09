@@ -1,11 +1,53 @@
-.App {
+.app {
   text-align: center;
   background-color: #d4d4d4;
   min-height: 100vh;
 }
 
-.App-header {
+.app-header {
   background-color: #282c34;
   color: white;
   padding: 1rem 0;
+}
+
+.app-body {
+  text-align: left;
+  max-width: 80%;
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 1px 1px 10px rgba(0,0,0, .2);
+}
+
+.body-title {
+  border-left: 4px solid #282c34;
+  padding-left: 8px;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.text-input {
+  padding: 4px;
+  border: 1px solid #ddd;
+  min-width: 8.5rem;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.primary-button {
+  background-color: #282c34;
+  padding: 4px 8px;
+  color: white;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
 }
