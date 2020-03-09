@@ -38,9 +38,10 @@
 .text-input {
   padding: 4px;
   border: 1px solid #ddd;
-  min-width: 8.5rem;
+  min-width: 10rem;
   border-radius: 4px;
   margin-bottom: 4px;
+  box-sizing: border-box;
 }
 
 .primary-button {
@@ -50,4 +51,24 @@
   font-size: 1rem;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.filedset {
+  min-width: 10rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0;
+  margin-bottom: 4px;
+  padding: 4px 4px 4px 0;
+  box-sizing: border-box;
+}
+
+.filedset-legend {
+  font-weight: bold;
+  font-size: 16px;
+  padding:0 0 4px 0;
+}
+
+.radio-label {
+  margin-left: 4px;
 }
