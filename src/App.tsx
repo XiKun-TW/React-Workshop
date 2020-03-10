@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Select, { SelectItem } from "./components/select";
+import { useProvinceCitys } from "./components/customHooks/useProvinceCitys";
+import { useMultiSelections } from "./components/customHooks/useMultiSelections";
+import { useSingleSelection } from "./components/customHooks/useSingleSelection";
+import { DEFAULT_GRADE_ITEMS, DEFAULT_SKILL_ITEMS} from './constants/mockData';
+import { PROVINCE_META_DATA, ProvinceName } from './constants/citys';
 import "./App.css";
 
-const defaultGradeItems: SelectItem[] = [
-  { id: "junior", value: "Junior Consultant", isSelected: false },
-  { id: "senior", value: "Senior Consultant", isSelected: false },
-  { id: "lead", value: "Lead Consultant", isSelected: false }
-];
-
-const defaultSkillItems: SelectItem[] = [
-  { id: "java", value: "Java", isSelected: false },
-  { id: "csharp", value: "C#", isSelected: false },
-  { id: "javascript", value: "JavaScript", isSelected: false },
-  { id: "html", value: "HTML", isSelected: false },
-  { id: "css", value: "CSS", isSelected: false },
-  { id: "react", value: "React", isSelected: false },
-  { id: "angular", value: "Angular", isSelected: false },
-  { id: "vue", value: "Vue", isSelected: false }
-];
-
 function App() {
-  const [gradeItems, setGradeItems] = useState(defaultGradeItems);
-  const [skillItems, setSkillItems] = useState(defaultSkillItems);
+  const provinces : SelectItem[] = PROVINCE_META_DATA.map(province => ({ id: province.id, value: province.name, isSelected: false }));
+  const [gradeItems, setGradeSelection] = useSingleSelection(DEFAULT_GRADE_ITEMS);
+  const [skillItems, setSkillSelection] = useMultiSelections(DEFAULT_SKILL_ITEMS);
+  const [provinceSelections, setProvinceSelection] = useSingleSelection(provinces);
+  const [citys, setProvince] = useProvinceCitys('');
+  const citySelection : SelectItem[] = citys.map(city => ({ id: city.id, value: city.name, isSelected: false }));
+  const [citySelections, setCitySelection, resetSelections] = useSingleSelection(citySelection);
+ 
+  useEffect(() => {
+    if(!citys.every(city => citySelections.find(citySelection => citySelection.id === city.id))) {
+      const newCitySelection : SelectItem[] = citys.map(city => ({ id: city.id, value: city.name, isSelected: false }));
+      resetSelections(newCitySelection);
+    }
+  }, [citys, citySelections, resetSelections])
+
+  const handleProvinceSelectionChange = (selectedProvince : SelectItem) => {
+    setProvince(selectedProvince.value as ProvinceName);
+    setProvinceSelection(selectedProvince);
+  }
 
   const handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void = e => {
     if (e.target) {
@@ -33,24 +38,6 @@ function App() {
       alert(`User Name: ${firstName} ${lastName}`);
     }
     // e.preventDefault();
-  };
-
-  const handleGradeSelect = (item: SelectItem) => {
-    const updatedItem = gradeItems.map(gradeItem => ({
-      ...gradeItem,
-      isSelected: item.id === gradeItem.id
-    }));
-    setGradeItems(updatedItem);
-  };
-
-  const handleSkillSelect = (item: SelectItem) => {
-    const updatedItem = skillItems.map(skillItem => {
-      if (skillItem.id === item.id) {
-        return { ...skillItem, isSelected: !item.isSelected };
-      }
-      return { ...skillItem };
-    });
-    setSkillItems(updatedItem);
   };
 
   return (
@@ -79,12 +66,26 @@ function App() {
               Female
             </label>
           </fieldset>
+          <label className="input-label">Province:</label>
+          <Select
+            id="province-select"
+            name="province"
+            items={provinceSelections}
+            onItemClicked={handleProvinceSelectionChange}
+          />
+          <label className="input-label">City:</label>
+          <Select
+            id="city-select"
+            name="city"
+            items={citySelections}
+            onItemClicked={setCitySelection}
+          />
           <label className="input-label">Grade:</label>
           <Select
             id="grade-select"
             name="grade"
             items={gradeItems}
-            onItemClicked={handleGradeSelect}
+            onItemClicked={setGradeSelection}
           />
           <label className="input-label">Skill:</label>
           <Select
@@ -92,7 +93,7 @@ function App() {
             name="skill"
             items={skillItems}
             isMultiple
-            onItemClicked={handleSkillSelect}
+            onItemClicked={setSkillSelection}
           />
           <button className="primary-button">submit</button>
         </form>
