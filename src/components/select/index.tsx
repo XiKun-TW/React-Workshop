@@ -9,12 +9,13 @@ export type SelectItem = {
 
 type SelectProps = {
   id: string;
+  name: string;
   items: SelectItem[];
   isMultiple?: boolean;
   onItemClicked: (item: SelectItem) => void;
 };
 
-const Select = ({ items, isMultiple, onItemClicked }: SelectProps) => {
+const Select = ({ id, items, isMultiple, onItemClicked, name }: SelectProps) => {
   const [isOpen, setOpenStatus] = useState(false);
 
   const selectedValues = items
@@ -63,6 +64,8 @@ const Select = ({ items, isMultiple, onItemClicked }: SelectProps) => {
         ))}
       </ul>
       <select
+        id={id}
+        name={name}
         multiple={isMultiple}
         value={isMultiple ? selectedIds : selectedIds.join(';')}
         className="native-select"

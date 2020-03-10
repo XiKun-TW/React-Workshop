@@ -32,7 +32,7 @@ function App() {
 
       alert(`User Name: ${firstName} ${lastName}`);
     }
-    e.preventDefault();
+    // e.preventDefault();
   };
 
   const handleGradeSelect = (item: SelectItem) => {
@@ -62,32 +62,34 @@ function App() {
           <label className="input-label" htmlFor="first-name">
             First Name:
           </label>
-          <input className="text-input" id="first-name" />
+          <input className="text-input" name="firstName" id="first-name" />
           <label className="input-label" htmlFor="last-name">
             Last Name:
           </label>
-          <input className="text-input" id="last-name" />
+          <input className="text-input" name="lastName" id="last-name" />
           <fieldset className="filedset">
             <legend className="filedset-legend">Gender:</legend>
             <label className="radio-label" htmlFor="gender-male">
-              <input type="radio" name="gender" id="gender-male" />
+              <input type="radio" value="male" name="gender" id="gender-male" />
               Male
             </label>
 
             <label className="radio-label" htmlFor="gender-female">
-              <input type="radio" name="gender" id="gender-female" />
+              <input type="radio" value="female" name="gender" id="gender-female" />
               Female
             </label>
           </fieldset>
           <label className="input-label">Grade:</label>
           <Select
             id="grade-select"
+            name="grade"
             items={gradeItems}
             onItemClicked={handleGradeSelect}
           />
           <label className="input-label">Skill:</label>
           <Select
             id="skill-select"
+            name="skill"
             items={skillItems}
             isMultiple
             onItemClicked={handleSkillSelect}
