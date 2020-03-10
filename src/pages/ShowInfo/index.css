@@ -1,0 +1,34 @@
+.user-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+.user-item + .user-item  {
+    margin-top: 1rem;
+    padding-top: .5rem;
+    border-top: 1px solid #ddd;
+}
+
+.user-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.user-gender {
+    font-size: .75rem;
+    font-weight: normal;
+    margin-left: .25rem;
+}
+
+.user-address,
+.user-skill {
+    margin-top: .25rem;
+}

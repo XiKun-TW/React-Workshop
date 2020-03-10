@@ -1,0 +1,13 @@
+{
+  "name": "react-demo-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kun Xi",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^0.16.1"
+  },
+  "scripts": {
+    "start": "json-server --watch db.json --port 3001"
+  }
+}
