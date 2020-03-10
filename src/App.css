@@ -53,6 +53,11 @@
   cursor: pointer;
 }
 
+.primary-button.is-disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
 .filedset {
   min-width: 15rem;
   border: 1px solid #ddd;
