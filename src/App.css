@@ -77,3 +77,7 @@
 .radio-label {
   margin-left: 4px;
 }
+
+.input-error {
+  color: red;
+}

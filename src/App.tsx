@@ -15,6 +15,8 @@ function App() {
   }));
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [firstNameValid, setFirstNameValidation] = useState(true);
+  const [lastNameValid, setLastNameValidation] = useState(true);
   const [isFemale, setGender] = useState(false);
   const formInput = useRef(null);
   const [gradeItems, setGradeSelection] = useSingleSelection(
@@ -77,6 +79,14 @@ function App() {
     citySelections
   ]);
 
+  const validateNameInput = (
+    value: string,
+    validationSetter: (result: boolean) => void
+  ) => {
+    const validationResult = /^[a-z,A-Z]+$/.test(value);
+    validationSetter(validationResult);
+  };
+
   const handleProvinceSelectionChange = (selectedProvince: SelectItem) => {
     setProvince(selectedProvince.value as ProvinceName);
     setProvinceSelection(selectedProvince);
@@ -119,8 +129,18 @@ function App() {
             name="firstName"
             value={firstName}
             id="first-name"
-            onInput={e => setFirstName(e.currentTarget.value)}
+            onInput={e => {
+              setFirstName(e.currentTarget.value);
+            }}
+            onBlur={e => {
+              validateNameInput(e.currentTarget.value, setFirstNameValidation);
+            }}
           />
+          {!firstNameValid && (
+            <small className="input-error">{`*${
+              firstName ? "Name must be alphabetic" : "First name is required"
+            }`}</small>
+          )}
           <label className="input-label" htmlFor="last-name">
             Last Name:
           </label>
@@ -129,8 +149,18 @@ function App() {
             value={lastName}
             name="lastName"
             id="last-name"
-            onInput={e => setLastName(e.currentTarget.value)}
+            onInput={e => {
+              setLastName(e.currentTarget.value);
+            }}
+            onBlur={e => {
+              validateNameInput(e.currentTarget.value, setLastNameValidation);
+            }}
           />
+          {!lastNameValid && (
+            <small className="input-error">{`*${
+              firstName ? "Name must be alphabetic" : "Last name is required"
+            }`}</small>
+          )}
           <fieldset className="filedset">
             <legend className="filedset-legend">Gender:</legend>
             <label className="radio-label" htmlFor="gender-male">
