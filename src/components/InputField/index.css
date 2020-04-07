@@ -1,0 +1,12 @@
+.input-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.text-input {
+  padding: 4px;
+  border: 1px solid #ddd;
+  min-width: 8.5rem;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
