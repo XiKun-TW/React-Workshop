@@ -1,0 +1,39 @@
+.native-select {
+    display: none;
+}
+
+.selected-text {
+    padding: 4px;
+    border: 1px solid #ddd;
+    min-width: 8.5rem;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    
+}
+
+.select-container {
+    position: relative;
+}
+
+.select-options-container {
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    
+    position: absolute;
+    left: 0;
+    top: 12px;
+    white-space: nowrap;
+    background-color: white;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+    z-index: 2;
+}
+
+.select-option {
+    border-bottom: 1px solid #ddd;
+    padding: 4px 30px 4px 8px;
+}
+
+.select-option.is-selected {
+    opacity: .5;
+}
