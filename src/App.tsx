@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import InputField from "./components/InputField";
 import RadioInput from "./components/RadioInput";
 import Select, { SelectItem } from "./components/Select";
+import { useSingleSelection } from "./components/CustomHooks/useSingleSelection";
+import { useMultipleSelections } from "./components/CustomHooks/useMutipleSelections";
+import { useProvinceCitys } from "./components/CustomHooks/useProvinceCitys";
+import { PROVINCE_META_DATA, ProvinceName } from "./constants/citys";
 
 const defaultGradeItems: SelectItem[] = [
   { value: "junior", text: "Junior Consultant", isSelected: false },
@@ -25,8 +29,50 @@ const App = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
-  const [grade, setGrade] = useState(defaultGradeItems);
-  const [skill, setSkill] = useState(defaultSkillItems);
+  const [grade, setSelectedGrade] = useSingleSelection(defaultGradeItems);
+  const [skill, setSelectedSkill] = useMultipleSelections(defaultSkillItems);
+  const [citys, setProvince] = useProvinceCitys("");
+
+  const cityItems: SelectItem[] = citys.map((city) => ({
+    value: city.id,
+    text: city.name,
+    isSelected: false,
+  }));
+
+  const provinceItems: SelectItem[] = PROVINCE_META_DATA.map((province) => ({
+    value: province.id,
+    text: province.name,
+    isSelected: false,
+  }));
+
+  const [provinceSelections, setProvinceSelection] = useSingleSelection(
+    provinceItems
+  );
+
+  const [
+    citySelections,
+    setCitySelection,
+    resetCitySelections,
+  ] = useSingleSelection(cityItems);
+
+  useEffect(() => {
+    if (citys.length === 0) {
+      return;
+    }
+
+    if (
+      !citys.some((city) =>
+        citySelections.find((citySelection) => citySelection.value === city.id)
+      )
+    ) {
+      const newCitySelections: SelectItem[] = citys.map((newCity) => ({
+        value: newCity.id,
+        text: newCity.name,
+        isSelected: false,
+      }));
+      resetCitySelections(newCitySelections);
+    }
+  }, [citys, citySelections, resetCitySelections]);
 
   const handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void = (
     e
@@ -36,29 +82,6 @@ const App = () => {
     }
 
     e.preventDefault();
-  };
-
-  const handleGradeChange = (item: SelectItem) => {
-    const updatedItem = grade.map((gradeItem) => {
-      return {
-        ...gradeItem,
-        isSelected: item.value === gradeItem.value,
-      };
-    });
-    setGrade(updatedItem);
-  };
-
-  const handleSkillChange = (item: SelectItem) => {
-    const updatedItem = skill.map((skillItem) => {
-      if (item.value === skillItem.value) {
-        return {
-          ...skillItem,
-          isSelected: !item.isSelected,
-        };
-      }
-      return { ...skillItem };
-    });
-    setSkill(updatedItem);
   };
 
   return (
@@ -101,11 +124,28 @@ const App = () => {
             />
           </fieldset>
           <Select
+            name="province"
+            id="select-province"
+            items={provinceSelections}
+            labelName="Province:"
+            onItemClicked={(selectedProvince) => {
+              setProvince(selectedProvince.text as ProvinceName);
+              setProvinceSelection(selectedProvince);
+            }}
+          />
+          <Select
+            name="city"
+            id="select-city"
+            items={citySelections}
+            labelName="City:"
+            onItemClicked={setCitySelection}
+          />
+          <Select
             name="grade"
             id="select-grade"
             items={grade}
             labelName="Grade:"
-            onItemClicked={handleGradeChange}
+            onItemClicked={setSelectedGrade}
           />
           <Select
             name="skill"
@@ -113,7 +153,7 @@ const App = () => {
             items={skill}
             labelName="Skill:"
             isMultiple
-            onItemClicked={handleSkillChange}
+            onItemClicked={setSelectedSkill}
           />
           <button className="primary-button">submit</button>
         </form>
