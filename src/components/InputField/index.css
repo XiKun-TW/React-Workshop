@@ -10,3 +10,8 @@
   border-radius: 4px;
   margin-bottom: 4px;
 }
+
+.text-input-error {
+  margin-bottom: 16px;
+  color: red;
+}

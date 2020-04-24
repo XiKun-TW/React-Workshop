@@ -1,0 +1,48 @@
+{
+  "user": [
+    {
+      "firstName": "Kun",
+      "lastName": "Xi",
+      "isMale": true,
+      "skill": [
+        "csharp",
+        "javascript",
+        "html",
+        "css",
+        "react",
+        "angular",
+        "vue"
+      ],
+      "grade": "senior",
+      "province": "310000000000",
+      "city": "310100000000",
+      "id": 1
+    },
+    {
+      "firstName": "ABC",
+      "lastName": "we",
+      "isMale": true,
+      "skill": [
+        "java"
+      ],
+      "grade": "senior",
+      "province": "110000000000",
+      "city": "110100000000",
+      "id": 2
+    },
+    {
+      "firstName": "Kun",
+      "lastName": "Kun",
+      "isMale": true,
+      "skill": [
+        "csharp",
+        "javascript",
+        "html"
+      ],
+      "grade": "junior",
+      "province": "110000000000",
+      "city": "110100000000",
+      "id": 3
+    }
+  ]
+}

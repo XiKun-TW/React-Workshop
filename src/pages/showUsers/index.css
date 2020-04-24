@@ -1,0 +1,30 @@
+.user-lists {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-item + .user-item {
+    border-top: 1px solid #f4f4f4;
+}
+
+.user-name {
+    color: #444;
+    padding-left: 8px;
+    border-left: 6px solid #222;
+}
+
+.user-gender, .user-grade {
+    color: #666;
+    font-size: 14px;
+}
+
+.user-grade {
+    margin-top: 8px;
+}

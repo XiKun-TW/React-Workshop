@@ -38,3 +38,7 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.primary-button--is-disabled {
+  opacity: .5;
+}
